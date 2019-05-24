@@ -24,11 +24,7 @@ class CartController extends Controller
     {
         $products=Product::all();
 
-        $images = DB::table('images')
-                ->join('products', 'images.product_id', '=', 'products.id')
-                ->get();
-        
-        return view('carts.index', compact('products', 'images'));
+        return view('carts.index', compact('products'));
     }
 
     /**

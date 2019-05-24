@@ -29,9 +29,7 @@
                     <td data-th="Product">
                         <div class="row">
                             <div class="col-sm-3" hidden-xs>
-                            @if(!empty($images))
-                                <img src="{{  url('image/view/'.$images[$id]->image_src) }}" alt="..." class="card-img-top" width="100" style="100" class="image-responsive">
-                            @endif
+                                <img src="{{ asset('images/'.$product['image_url']) }}" alt="..." class="card-img-top" width="100" style="100" class="image-responsive">          
                             </div>
                             <div class="col-sm-6">
                                 <h4 class="nomargin">{{ $product['name'] }}</h4>

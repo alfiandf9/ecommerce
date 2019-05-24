@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 @endif
-                <form action="{{ route('admin.products.store') }}" method="POST">
+                <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label>Nama Produk</label>
@@ -60,8 +60,8 @@
                 </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                    <a href="{{ route('admin.products.index') }}"><button type="button" class="btn btn-default">Kembali</button></a>
-                    <button type="submit" class="btn btn-success pull-right">Simpan</button>
+                    <a href="{{ route('admin.products.index') }}"><button type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Kembali</button></a>
+                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Simpan</button>
             </div>
             <!-- /.box-footer -->
             </form>

@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 @endif
-                <form action="{{ route('admin.products.update', $product['id']) }}" method="POST">
+                <form action="{{ route('admin.products.update', $product['id']) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="form-group">
@@ -59,8 +59,8 @@
                     </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                    <a href="{{ route('admin.products.index') }}"><button type="button" class="btn btn-default">Kembali</button></a>
-                    <button type="submit" class="btn btn-success pull-right">Ubah</button>
+                    <a href="{{ route('admin.products.index') }}"><button type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Kembali</button></a>
+                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Ubah</button>
             </div>
             <!-- /.box-footer -->
             </form>

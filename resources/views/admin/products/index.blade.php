@@ -29,8 +29,6 @@
                             <th>#</th>
                             <th>Nama Produk</th>
                             <th>Harga Produk</th>
-                            <th>Gambar Produk</th>
-                            <th>Review Produk</th>
                             <th>Tanggal Masuk</th>
                             <th>Action</th>
                         </tr>
@@ -42,9 +40,6 @@
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>Rp. {{ number_format($product->price) }}</td>
-                                <td></td>
-                                <td></td>
-                                <!-- <td> $product_reviews[]->rating </td> -->
                                 <td>{{ $product->created_at }}</td>
                                 <td>
                                 <div class="btn-group">

@@ -29,6 +29,7 @@
                         <th>Nama Produk</th>
                         <th>Harga Produk</th>
                         <th>Gambar Produk</th>
+                        <th>Review Produk</th>
                         <th>Deskripsi Produk</th>
                     </thead>
                     <?php $no = 1 ?>
@@ -36,17 +37,12 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $product->name }}</td>
                         <td>Rp. {{ number_format($product->price, 2) }}</td>
-                        <td>
-                        @if(!empty($images))
-                            @foreach($images as $val)
-                            <div class="col-md-4" align="center">
-                                <img src="{{ url('image/view/'.$val->image_src)}}" class="img-thumbnail" width="300">
-                                <b>{{ $val->image_title }}</b>
-                            </div>
-                            @endforeach
-                        @endif
-                        </td>
-                        <td>{{ strip_tags($product->description) }}</td>
+                        <td><img src="{{ asset('images/'.$product->image_url) }}" alt="..." class="img-thumbnail" width="200" height="150" class="image-responsive"></td>
+                        @php 
+                            $review = DB::table('product_reviews')->where('product_id', '=', $product->id)->get()
+                        @endphp
+                        <td>{{ (isset($review[0]->rating)) ? $review[0]->rating : '0' }} / 5 Bintang</td>
+                        <td>{!! $product->description !!}</td>
                     </tbody>
                 </table>
                 </div>

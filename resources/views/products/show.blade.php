@@ -5,11 +5,7 @@
     <br><br>
     <div class="row">
         <div class="col-md-3">
-        @if(!empty($images))
-            @foreach($images as $val)
-            <img src="{{ url('image/view/'.$val->image_src) }}" alt="..." class="card-img-top">
-            @endforeach
-        @endif
+            <img src="{{  asset('images/'.$product->image_url) }}" alt="..." class="card-img-top">
         </div>
         <div class="col-md-9">
             <h3>

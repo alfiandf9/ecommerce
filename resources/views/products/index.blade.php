@@ -28,9 +28,7 @@
 
             <div class="col">
                 <div class="card">
-                @if(!empty($images))
-                    <img src="{{  url('image/view/'.$images[$product->id]->image_src) }}" alt="..." class="card-img-top" width="300px" style="min-height:200px" class="image-responsive">
-                @endif
+                    <img src="{{  asset('images/'.$product->image_url) }}" alt="..." class="img-thumbnail" width="300px" style="min-height:200px" class="image-responsive">
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="{{ route('products.show', ['id' => $product->id]) }}">
@@ -42,9 +40,7 @@
                         </p>
                         <a href="{{ route('carts.add', ['id' => $product->id]) }}" class="btn btn-primary">Beli</a>
                     </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -70,15 +66,16 @@
                 dataType: 'json',
                 success: function(data){
                     console.log('data:', data);
+                    
                     var products = '';
                     $.each(data, function(idx, product){
                         if(idx == 0 || idx % 4 == 0){
                             products += '<div class="row mt-4">';
                         }
-
+                        var images = "{{asset('images') }}/"+ product.image_url;
                         products += '<div class="col">' +
                             '<div class="card">' +
-                                '<img src="/products/image/' + products.image_url + '" class="card-img-top" alt="...">' +
+                                '<img src="'+ images +'" alt="..." class="img-thumbnail" width="300px" style="min-height:200px" class="image-responsive">' +
                                     '<div class="card-body">' +
                                         '<h5 class="card-title">' +
                                             '<a href="/products/' + product.id + '">' +
@@ -89,9 +86,6 @@
                                             product.price +
                                         '</p>' +
                                             '<a href="/carts/add/' + product.id + '" class="btn btn-primary">Beli</a>' +
-                                    '</div>' +
-                                    '<div class="card-footer">' +
-                                        '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>';

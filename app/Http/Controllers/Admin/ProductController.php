@@ -55,12 +55,22 @@ class ProductController extends Controller
             'image'=> 'required',
             'description' => 'required',
         ]);
+        $file = $request->file('image');
+        $ext = $file->getClientOriginalExtension();
+
+        $dateTime = date('Ymd_his');
+        $newName = 'image_'.$dateTime.'.'.$ext;
+        
+
+        $file->move('images/',$newName);
+
+
         //
         $product = new Product();
         $product->user_id   = Auth::user()->id;
         $product->name      = $request->post('name');
         $product->price     = $request->post('price');
-        $product->image_url = $request->post('image');
+        $product->image_url = $newName;
         $product->description  = $request->post('description');
         $product->save();
 

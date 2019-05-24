@@ -98,13 +98,13 @@ class OrderController extends Controller
     {
         
 
-        $images = DB::table('images')
-                ->join('products', 'images.product_id', '=', 'products.id')
+        $product = DB::table('products')
+                ->join('order_items', 'products.id', '=', 'order_items.product_id')
                 ->get();
 
         $order = Order::find($id);
         if($order){
-            return view('admin.orders.show', compact('order', 'images'));
+            return view('admin.orders.show', compact('order', 'product'));
         }else{
             return redirect('admin/orders')->with('errors', 'Order tidak ditemkan');
         }

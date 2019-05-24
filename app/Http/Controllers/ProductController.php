@@ -29,16 +29,11 @@ class ProductController extends Controller
         $productInstance = new Product();
         $products = $productInstance->orderProducts($request->get('order_by'));
 
-        
-        $images = DB::table('images')
-                ->join('products', 'images.product_id', '=', 'products.id')
-                ->get();
-
-        if($request->ajax()){
+        if($request->ajax()){ 
             return response()->json($products, 200);
         }
 
-        return view('products.index', compact( 'images', 'products'));
+        return view('products.index', compact('products'));
     }
 
     /**
