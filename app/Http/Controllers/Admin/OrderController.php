@@ -23,7 +23,7 @@ class OrderController extends Controller
     public function index()
     {
         //
-        $orders = Order::where('user_id', '=', Auth::user()->id->get());
+        $orders = Order::where('user_id', '=', Auth::user()->id)->get();
 
         return view('admin.orders.index', compact('orders'));
     }

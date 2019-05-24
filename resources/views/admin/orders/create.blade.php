@@ -1,12 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.top-nav')
 
 @section('content')
-<div class="container">
+<div class="container"><br><br>
     <div class="row justify-content-center">
         <div class="col">
-            <h2>Menambahkan Alamat</h2>
-
-            <br>
+            <h2>Alamat Pengiriman</h2>
             @if(count($errors))
             <div class="form-group">
                 <div class="alert alert-danger">

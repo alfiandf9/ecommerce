@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.top-nav')
 
 @section('content')
-<div class="container col-md-8">
+<!-- Page Content -->
+<div class="container">
+    <div class="col"><br><br>
     <!-- implementasi ajax -->
-    
-        <div class="row-mt-4">
+        <div class="row">
             <div class="col-md-4 offset-md-8">
                 <div class="form-group">
                     <select id="order_field" class="form-control">
@@ -41,6 +42,9 @@
                         </p>
                         <a href="{{ route('carts.add', ['id' => $product->id]) }}" class="btn btn-primary">Beli</a>
                     </div>
+                    <div class="card-footer">
+                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
                 </div>
             </div>
 
@@ -50,6 +54,7 @@
     @endforeach
     </div>
 </div>
+<br><br>
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -74,16 +79,19 @@
                         products += '<div class="col">' +
                             '<div class="card">' +
                                 '<img src="/products/image/' + products.image_url + '" class="card-img-top" alt="...">' +
-                                '<div class="card-body">' +
-                                    '<h5 class="card-title">' +
-                                        '<a href="/products/' + product.id + '">' +
-                                        product.name +
-                                        '</a>' +
+                                    '<div class="card-body">' +
+                                        '<h5 class="card-title">' +
+                                            '<a href="/products/' + product.id + '">' +
+                                            product.name +
+                                            '</a>' +
                                         '</h5>' +
                                         '<p class="card-text"> Rp. ' +
                                             product.price +
-                                        '</p>'
-                                        '<a href="/carts/add/' + product.id + '" class="btn btn-primary">Beli</a>' +
+                                        '</p>' +
+                                            '<a href="/carts/add/' + product.id + '" class="btn btn-primary">Beli</a>' +
+                                    '</div>' +
+                                    '<div class="card-footer">' +
+                                        '<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>';

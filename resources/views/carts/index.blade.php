@@ -1,69 +1,73 @@
-@extends('layouts.app')
+@extends('layouts.top-nav')
 
 @section('content')
-<div class="container">
-    <table id="cart" class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <th styles="width:50%">Product</th>
-                <th styles="width:10%">Price</th>
-                <th styles="width:8%">Quantity</th>
-                <th styles="width:22%" class="text-center">Subtotal</th>
-                <th styles="width:10%"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $total = 0 ?>
+<div class="container"><br><br>
+    <div class="col-md-12">
+        <table id="cart" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Subtotal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $total = 0 ?>
 
-            @if(session('cart'))
-            <?php
-                // var_dump(session('cart'));
-                // exit();
-            ?>
-            @foreach(session('cart') as $id => $product)
+                @if(session('cart'))
+                <?php
+                    // var_dump(session('cart'));
+                    // exit();
+                ?>
+                @foreach(session('cart') as $id => $product)
 
-            <?php $total += $product['price'] * $product['quantity'] ?>
-            
-            <tr>
-                <td data-th="Product">
-                    <div class="row">
-                        <div class="col-sm-3" hidden-xs>
-                        @if(!empty($images))
-                            <img src="{{  url('image/view/'.$images[$id]->image_src) }}" alt="..." class="card-img-top" width="100" style="100" class="image-responsive">
-                        @endif
+                <?php $total += $product['price'] * $product['quantity'] ?>
+                
+                <tr>
+                    <td data-th="Product">
+                        <div class="row">
+                            <div class="col-sm-3" hidden-xs>
+                            @if(!empty($images))
+                                <img src="{{  url('image/view/'.$images[$id]->image_src) }}" alt="..." class="card-img-top" width="100" style="100" class="image-responsive">
+                            @endif
+                            </div>
+                            <div class="col-sm-6">
+                                <h4 class="nomargin">{{ $product['name'] }}</h4>
+                            </div>
                         </div>
-                        <div class="col-sm-9">
-                            <h4 class="nomargin">{{ $product['name'] }}</h4>
+                    </td>
+                    <td data-th="Price">{{ number_format($product['price']) }}</td>
+                    <td data-th="Quantity">
+                        <input type="number" value="{{ $product['quantity'] }}" class="form-control quantity">
+                    </td>
+                    <td data-th="Subtotal">{{ number_format($product['price'] * $product['quantity']) }}</td>
+                    <td class="action" data-th="">
+                        <div class="btn-group">
+                            <button class="btn btn-info btn-sm update-cart" data-id="{{ $id }}" style="padding-right: 10px;padding-left: 10px;"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-danger btn-sm  remove-from-cart" data-id="{{ $id }}" style="padding-right: 10px;padding-left: 10px;"><i class="fa fa-close"></i></button>
                         </div>
-                    </div>
-                </td>
-                <td data-th="Price">${{ $product['price'] }}</td>
-                <td data-th="Quantity">
-                    <input type="number" value="{{ $product['quantity'] }}" class="form-control quantity">
-                </td>
-                <td data-th="Subtotal" class="text-center">${{ $product['price'] * $product['quantity'] }}</td>
-                <td class="action" data-th="">
-                    <button class="btn btn-info btn-sm update-cart" data-id="{{ $id }}">Update</button>
-                    <button class="btn btn-danger btn-sm  remove-from-cart" data-id="{{ $id }}">Remove</button>
-                </td>
-            </tr>
-            @endforeach
-            @endif
-        </tbody>
-        <tfoot>
-            <tr class="visible-xs">
-                <td class="text-center"><strong>Total {{ $total }}</strong></td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="{{ url('/products') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i>Lanjutkan Belanja</a>
-                    <a href="{{ route('admin.orders.create') }}" class="btn btn-primary"><i class="fa fa-angle-left">Lanjut ke pembayaran</i></a>
-                </td>
-                <td colspan="2" class="hidden-xs"></td>
-                <td class="hidden-xs text-center"><strong>Total ${{ $total }}</strong></td>
-            </tr>
-        </tfoot>
-    </table>
+                    </td>
+                </tr>
+                @endforeach
+                @endif
+            </tbody>
+            <tfoot>
+                <tr class="visible-xs">
+                    <td class="text-center"><strong>Total Rp. {{ number_format($total) }}</strong></td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="{{ url('/products') }}" class="btn btn-success"><i class="fa fa-cart-plus"></i> Lanjutkan Belanja</a>
+                        <a href="{{ route('admin.orders.create') }}" class="btn btn-info"><i class="fa fa-money"></i> Bayar</a>
+                    </td>
+                    <td colspan="2" class="hidden-xs"></td>
+                    <td class="hidden-xs"><strong>Total {{ number_format($total) }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
 <!-- jquery -->
@@ -88,7 +92,7 @@
             e.preventDefault();
             var ele = $(this);
 
-            if(confirm("Are you sure")) {
+            if(confirm("Apakah anda yakin?")) {
                 $.ajax({
                     url: '{{ route('carts.remove') }}',
                     method: "DELETE",

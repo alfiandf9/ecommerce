@@ -14,7 +14,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth');
         $this->model = new Product;
     }
     /**
@@ -24,15 +24,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        if(Auth::check()){
-            $products = DB::table('products')->where('products.user_id', '=', Auth::user()->id)->get();
-            return view('admin.products.index', compact('products'));
-        }else{
-            $products = Product::all();
-            return view('index', compact('products'));
-        }
-        
+        $product_reviews = DB::table('product_reviews')->get();
+        $products = DB::table('products')->where('products.user_id', '=', Auth::user()->id)->get();
+        // view
+        return view('admin.products.index', compact('products', 'product_reviews'));
     }
 
     /**
@@ -57,6 +52,7 @@ class ProductController extends Controller
         $this->validate(request(), [
             'name' => 'required|unique:products,name',
             'price'=> 'required|numeric',
+            'image'=> 'required',
             'description' => 'required',
         ]);
         //
@@ -64,6 +60,7 @@ class ProductController extends Controller
         $product->user_id   = Auth::user()->id;
         $product->name      = $request->post('name');
         $product->price     = $request->post('price');
+        $product->image_url = $request->post('image');
         $product->description  = $request->post('description');
         $product->save();
 
@@ -86,11 +83,6 @@ class ProductController extends Controller
                 ->where('products.id', '=', $id)
                 ->get();
         return view('admin.products.show', compact('product', 'images'));
-        // if($product){
-        //     return view('show', compact('product'));
-        // }else{
-        //     return redirect('/products')->with('errors', 'Produk tidak ditemukan');
-        // }
     }
 
     /**
